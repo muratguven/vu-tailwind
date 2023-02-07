@@ -1,17 +1,17 @@
 <template>
   <div class="flex justify-center items-center w-full">
-    <Modal :show="showModal" @closed="showModal=false">
+    <Modal :visible="showModal" @closed="showModal=false" >
       <template #modal-header>
         <h1>Modal Header</h1>
       </template>
-      <template #body class="flex flex-col justify-center">
+      
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim laborum
           quo provident placeat quasi repudiandae obcaecati! Sit, necessitatibus
           laboriosam libero quis voluptatum neque mollitia reprehenderit
           possimus eius id, a vitae.
         </p>
-      </template>
+      
       <template #footer>
       <div class="flex justify-end items-center mt-12">
         <button class="border ml-1 rounded-md shadow-lg px-8 py-2 text-white bg-indigo-500 border-indigo-400">Save Changes</button>
@@ -29,7 +29,6 @@ import Modal from "@/components/modal/Modal.vue";
 import {ref} from 'vue'
 
 const showModal = ref(false);
-
 
 </script>
 

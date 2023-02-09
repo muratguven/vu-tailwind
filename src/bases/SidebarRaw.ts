@@ -2,6 +2,7 @@ export default  interface SidebarRaw{
 
     to:string,
     iconName:string,
-    text:string
+    text:string,
+    children?:Array<SidebarRaw>
 
 }

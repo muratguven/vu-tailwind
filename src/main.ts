@@ -11,10 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
 /* import specific icons */
-import { faArrowRightArrowLeft, faCircleCheck, faGear, faHouse, faMoon, faObjectGroup, faRainbow, faUserSecret, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightArrowLeft, faCaretDown, faCircleCheck, faGear, faHouse, faMoon, faObjectGroup, faRainbow, faUserSecret, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faUserSecret,faHouse,faMoon,faRainbow,faGear,faCircleCheck,faArrowRightArrowLeft, faObjectGroup,faXmark)
+library.add(faUserSecret,faHouse,faMoon,faRainbow,faGear,faCircleCheck,faArrowRightArrowLeft, faObjectGroup,faXmark,faCaretDown)
 
 createApp(App)
 .use(router)

@@ -17,6 +17,7 @@
       <span
         class="flex p-3 h-full items-center transition-all duration-300 ease-in-out hover:cursor-pointer"
         v-else
+        @click="ToggleMenu(index)"
       >
         <font-awesome-icon
           :icon="item.iconName"
@@ -25,9 +26,9 @@
         />
 
         <span class="menu-text">{{ item.text }}</span>
-        <a class="flex-none w-6 absolute right-2" @click="ToggleMenu(index)">
+        <span class="flex-none w-6 absolute right-2" >
           <font-awesome-icon icon="fa-solid fa-caret-down" class="ml-2" />
-        </a>
+        </span>
       </span>
       <Transition name="submenu">
         <ul
@@ -59,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, computed, watch } from "vue";
+import { defineProps, ref, computed } from "vue";
 import SidebarRaw from "@/bases/SidebarRaw";
 
 const props = defineProps({

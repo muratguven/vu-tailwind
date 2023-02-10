@@ -60,6 +60,11 @@ const menuDataState = ref([
       },
     ],
   },
+  {
+    to: "/form",
+    iconName: "fa-solid fa-receipt",
+    text: "Forms",
+  },
 ]);
 const expandWidth = computed(() => ({
   "sidebar-expand": is_expanded.value,

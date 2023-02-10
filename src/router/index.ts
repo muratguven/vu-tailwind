@@ -14,6 +14,11 @@ const routes : Array<RouteRecordRaw> = [
     path:'/modal',
     name:'Modals',
     component: ()=>import('../views/Modals.vue')
+},
+{
+    path:'/form',
+    name:'Forms',
+    component: ()=>import('../views/Forms.vue')
 }
 ];
 

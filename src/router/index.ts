@@ -19,6 +19,11 @@ const routes : Array<RouteRecordRaw> = [
     path:'/form',
     name:'Forms',
     component: ()=>import('../views/Forms.vue')
+},
+{
+    path:'/dragable',
+    name:'DragDrop',
+    component: ()=>import('../views/Dragables.vue')
 }
 ];
 

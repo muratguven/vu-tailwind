@@ -65,6 +65,11 @@ const menuDataState = ref([
     iconName: "fa-solid fa-receipt",
     text: "Forms",
   },
+  {
+    to: "/dragable",
+    iconName: "fa-solid fa-draw-polygon",
+    text: "Drag&Drop",
+  },
 ]);
 const expandWidth = computed(() => ({
   "sidebar-expand": is_expanded.value,

@@ -76,8 +76,21 @@ const expandWidth = computed(() => ({
 }));
 </script>
 
-<style lang="postcss" scoped>
+<style lang="postcss">
 .logo {
   @apply w-[2rem] h-[2rem] my-3 md:w-[4rem] md:h-[4rem] border border-purple-400 rounded-full shadow-lg shadow-purple-500;
 }
+
+.sidebar {
+    @apply flex flex-col overflow-hidden text-slate-100 h-screen p-4 backdrop-blur-sm bg-gradient-to-t from-violet-500 to-fuchsia-500 transition-[width] duration-300 ease-in;
+
+    .menu-text {
+      @apply block opacity-0 w-0 transition-all duration-200 ease-in-out text-xs sm:text-sm md:text-base;
+    }
+  }
+  .sidebar-expand {
+    @apply w-[30%] sm:w-[15%] md:w-[18%] absolute z-50 md:relative md:z-0;
+
+   
+  }
 </style>

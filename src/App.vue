@@ -14,8 +14,8 @@
     </div>
   </div> -->
   <div class="flex h-screen container">
-    <!-- <Sidebar /> -->
-    <Navbar :menu-items="menuDataState" >
+    
+    <Sidebar :menu-items="menuDataState" >
       <template #logo>
       <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@
           </g>
         </svg>
       </template>
-    </Navbar>
+    </Sidebar>
     
     <RouterView />
     
@@ -63,8 +63,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import Sidebar from './components/sidebar/Sidebar.vue'
-import Navbar from '@/components/sidebar/Navbar.vue'
+
+import Sidebar from '@/components/sidebar/Sidebar.vue'
 
 import { ref } from 'vue'
 
@@ -79,6 +79,11 @@ const menuDataState = ref([
     iconName: "fa-solid fa-rainbow",
     text: "About",
     children: [
+      {
+        to: "/about",
+        iconName: "fa-solid fa-rainbow",
+        text: "Alt-About",
+      },
       {
         to: "/about",
         iconName: "fa-solid fa-rainbow",

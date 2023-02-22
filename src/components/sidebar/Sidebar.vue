@@ -1,96 +1,112 @@
 <template>
-  <aside class="sidebar" :class="expandWidth">
-    <div
-      class="flex flex-col items-center justify-end mb-4 border-b-[1px] border-purple-500 shadow-[0_30px_30px_-15px_rgba(172,91,239,0.3)]"
-    >
-      <img src="../../assets/vue.svg" alt="" class="logo" />
-      <button
-        @click="expand()"
-        class="m-2 transition all duration-300 ease-out hover:-translate-y-1"
+  <aside
+    class="w-1/2 md:w-1/5 h-screen overflow-hidden border bg-gradient-to-t from-slate-100 to-zinc-100 dark:from-indigo-900 dark:to-indigo-300"
+  >
+    <div class="flex flex-col items-center justify-center">
+      <slot name="logo"> </slot>
+
+      <h2
+        class="mt-4 text-sm font-bold md:text-base md:font-extrabold uppercase text-slate-600 dark:text-slate-50 underline underline-offset-4"
       >
-        <font-awesome-icon
-          icon="fa-solid fa-arrow-right-arrow-left"
-          class="h-5 w-5"
-        />
-      </button>
+        {{ props.appName }}
+      </h2>
+      <hr class="mt-4 w-full border border-zinc-100 dark:border-indigo-300 shadow-sm" />
     </div>
 
-    <div class="-mx-4 my-0">
-      <SidebarMenu :is_expanded="is_expanded" :menu-data="menuDataState" />
-    </div>
+    <ul class="flex flex-col justify-center text-slate-600 dark:text-slate-50">
+      <li class="relative" v-for="(item, index) in menuItems" >
+        <RouterLink
+          :to="item.to"
+          v-if="item.children?.length === 0 || !item.children"
+          class="flex h-10 p-2 cursor-pointer rounded-md justify-start items-center hover:bg-zinc-300 dark:hover:bg-purple-600"
+        >
+          <font-awesome-icon
+            :icon="item.iconName"
+            class="h-4 w-4 md:h-5 md:w-5"
+          />
+
+          <span class="ml-2 text-xs md:ml-4 md:text-base">{{ item.text }}</span>
+        </RouterLink>
+        <a class="flex h-10 p-2 cursor-pointer rounded-md hover:bg-zinc-300 dark:hover:bg-purple-600" v-else @click="toggleMenu(index)">
+          <font-awesome-icon
+            :icon="item.iconName"
+            class="h-4 w-4 md:h-5 md:w-5"
+            
+            
+          />
+          <span class="ml-2 text-xs md:ml-4 md:text-base" >{{ item.text }}</span>
+          <font-awesome-icon
+            icon="fa-solid fa-caret-down"
+            class="absolute right-3 top-3 h-3 w-3 md:h-4 md:w-4"
+          />
+        </a>
+        <Fade>
+          <ul
+          class="flex flex-col divide-y divide-dashed text-slate-600 dark:text-slate-50"
+          v-if="toggleList[index]"
+        >
+        
+          <li
+            class="relative"
+            v-for="subItem in item.children"
+            :key="subItem.to"
+          >
+            <RouterLink
+              :to="subItem.to"
+              class="flex h-10 pl-4 pt-2 cursor-pointer rounded hover:bg-stone-200 dark:hover:bg-fuchsia-600"
+            >
+              <font-awesome-icon
+                :icon="subItem.iconName"
+                class="h-4 w-4 md:h-5 md:w-5"
+              />
+
+              <span class="ml-2 text-xs md:ml-4"> {{ subItem.text }}</span>
+            </RouterLink>
+          </li>
+        </ul>
+        </Fade>
+       
+      </li>
+    </ul>
   </aside>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import SidebarMenu from "./SidebarMenu.vue";
-//States
-const is_expanded = ref(false);
+import SidebarRaw from "@/bases/SidebarRaw";
+import { ref, reactive, defineProps, onMounted } from "vue";
+import Fade from '@/components/transitions/fade.vue'
 
-//Methods
-const expand = () => (is_expanded.value = !is_expanded.value);
+const props = defineProps({
+  appName: { type: String, default: "Menu" },
+  class: { type: String },
+  menuItems: { type: Array<SidebarRaw>, required: true },
+});
 
-const menuDataState = ref([
-  {
-    to: "/",
-    iconName: "fa-solid fa-house",
-    text: "DashBoard",
-  },
-  {
-    to: "/about",
-    iconName: "fa-solid fa-rainbow",
-    text: "About",
-    children: [
-      {
-        to: "/about",
-        iconName: "fa-solid fa-rainbow",
-        text: "Alt-About",
-      },
-    ],
-  },
-  {
-    to: "/modal",
-    iconName: "fa-solid fa-object-group",
-    text: "Modals",
-    children: [
-      {
-        to: "/about",
-        iconName: "fa-solid fa-rainbow",
-        text: "Alt-About",
-      },
-    ],
-  },
-  {
-    to: "/form",
-    iconName: "fa-solid fa-receipt",
-    text: "Forms",
-  },
-  {
-    to: "/dragable",
-    iconName: "fa-solid fa-draw-polygon",
-    text: "Drag&Drop",
-  },
-]);
-const expandWidth = computed(() => ({
-  "sidebar-expand": is_expanded.value,
-}));
+const toggleList : Array<boolean> = reactive([]);
+
+const toggleMenu = (index:any)=>{
+  
+  toggleList[index] = !toggleList[index];
+  
+}
+
+onMounted(()=>{
+  props.menuItems.forEach((value)=>{   
+    toggleList.push(false);
+  })
+  
+});
+
 </script>
 
 <style lang="postcss">
-.logo {
-  @apply w-[2rem] h-[2rem] my-3 md:w-[4rem] md:h-[4rem] border border-purple-400 rounded-full shadow-lg shadow-purple-500;
+li:has(> a.router-link-active) {
+  @apply bg-stone-300 rounded dark:bg-purple-500;
 }
-
-.sidebar {
-    @apply flex flex-col overflow-hidden text-slate-100 h-screen p-4 backdrop-blur-sm bg-gradient-to-t from-violet-500 to-fuchsia-500 transition-[width] duration-300 ease-in;
-
-    .menu-text {
-      @apply block opacity-0 w-0 transition-all duration-200 ease-in-out text-xs sm:text-sm md:text-base;
-    }
-  }
-  .sidebar-expand {
-    @apply w-[30%] sm:w-[15%] md:w-[18%] absolute z-50 md:relative md:z-0;
-
-   
-  }
+.menu-item {
+  @apply relative h-10 w-full md:font-medium;
+}
+.menu-text {
+  @apply text-xs md:text-base sm:px-5 opacity-100;
+}
 </style>

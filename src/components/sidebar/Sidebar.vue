@@ -1,6 +1,12 @@
 <template>
-  <aside
-    class="w-1/2 md:w-1/5 h-screen overflow-hidden border bg-gradient-to-t from-slate-100 to-zinc-100 dark:from-indigo-900 dark:to-indigo-300"
+  <div class="flex flex-col">
+    <button
+      class="border-none mt-3 ml-3 rounded w-12 h-12 md:hidden bg-gradient-to-t from-slate-200 to-zinc-200 dark:text-slate-50 dark:from-zinc-700 dark:to-zinc-600"
+    >
+      <font-awesome-icon icon="fa-solid fa-bars" />
+    </button>
+    <aside
+    class="max-md:hidden rounded h-screen overflow-hidden border-none bg-gradient-to-t from-slate-100 to-zinc-100 dark:from-indigo-900 dark:to-indigo-300"
   >
     <div class="flex flex-col items-center justify-center">
       <slot name="logo"> </slot>
@@ -10,15 +16,17 @@
       >
         {{ props.appName }}
       </h2>
-      <hr class="mt-4 w-full border border-zinc-100 dark:border-indigo-300 shadow-sm" />
+      <hr
+        class="mt-4 w-full border border-zinc-100 dark:border-indigo-300 shadow-sm"
+      />
     </div>
 
     <ul class="flex flex-col justify-center text-slate-600 dark:text-slate-50">
-      <li class="relative" v-for="(item, index) in menuItems" >
+      <li class="relative" v-for="(item, index) in menuItems">
         <RouterLink
           :to="item.to"
           v-if="item.children?.length === 0 || !item.children"
-          class="flex h-10 p-2 cursor-pointer rounded-md justify-start items-center hover:bg-zinc-300 dark:hover:bg-purple-600"
+          class="flex h-10 p-2 cursor-pointer rounded-md justify-start items-center hover:bg-zinc-300 dark:hover:bg-indigo-600"
         >
           <font-awesome-icon
             :icon="item.iconName"
@@ -27,14 +35,16 @@
 
           <span class="ml-2 text-xs md:ml-4 md:text-base">{{ item.text }}</span>
         </RouterLink>
-        <a class="flex h-10 p-2 cursor-pointer rounded-md hover:bg-zinc-300 dark:hover:bg-purple-600" v-else @click="toggleMenu(index)">
+        <a
+          class="flex h-10 p-2 cursor-pointer rounded-md hover:bg-zinc-300 dark:hover:bg-purple-600"
+          v-else
+          @click="toggleMenu(index)"
+        >
           <font-awesome-icon
             :icon="item.iconName"
             class="h-4 w-4 md:h-5 md:w-5"
-            
-            
           />
-          <span class="ml-2 text-xs md:ml-4 md:text-base" >{{ item.text }}</span>
+          <span class="ml-2 text-xs md:ml-4 md:text-base">{{ item.text }}</span>
           <font-awesome-icon
             icon="fa-solid fa-caret-down"
             class="absolute right-3 top-3 h-3 w-3 md:h-4 md:w-4"
@@ -42,39 +52,40 @@
         </a>
         <Fade>
           <ul
-          class="flex flex-col divide-y divide-dashed text-slate-600 dark:text-slate-50"
-          v-if="toggleList[index]"
-        >
-        
-          <li
-            class="relative"
-            v-for="subItem in item.children"
-            :key="subItem.to"
+            class="flex flex-col divide-y divide-dashed text-slate-600 dark:text-slate-50"
+            v-if="toggleList[index]"
           >
-            <RouterLink
-              :to="subItem.to"
-              class="flex h-10 pl-4 pt-2 cursor-pointer rounded hover:bg-stone-200 dark:hover:bg-fuchsia-600"
+            <li
+              class="relative"
+              v-for="subItem in item.children"
+              :key="subItem.to"
             >
-              <font-awesome-icon
-                :icon="subItem.iconName"
-                class="h-4 w-4 md:h-5 md:w-5"
-              />
+              <RouterLink
+                :to="subItem.to"
+                class="flex h-10 pl-4 pt-2 cursor-pointer rounded hover:bg-stone-200 dark:hover:bg-fuchsia-600"
+              >
+                <font-awesome-icon
+                  :icon="subItem.iconName"
+                  class="h-4 w-4 md:h-5 md:w-5"
+                />
 
-              <span class="ml-2 text-xs md:ml-4"> {{ subItem.text }}</span>
-            </RouterLink>
-          </li>
-        </ul>
+                <span class="ml-2 text-xs md:ml-4"> {{ subItem.text }}</span>
+              </RouterLink>
+            </li>
+          </ul>
         </Fade>
-       
       </li>
     </ul>
   </aside>
+  </div>
+
+  
 </template>
 
 <script setup lang="ts">
 import SidebarRaw from "@/bases/SidebarRaw";
-import { ref, reactive, defineProps, onMounted } from "vue";
-import Fade from '@/components/transitions/fade.vue'
+import { ref, reactive, defineProps, onMounted, computed } from "vue";
+import Fade from "@/components/transitions/fade.vue";
 
 const props = defineProps({
   appName: { type: String, default: "Menu" },
@@ -82,21 +93,22 @@ const props = defineProps({
   menuItems: { type: Array<SidebarRaw>, required: true },
 });
 
-const toggleList : Array<boolean> = reactive([]);
+const toggleList: Array<boolean> = reactive([]);
+const isExpand = ref(false);
 
-const toggleMenu = (index:any)=>{
-  
+const toggleMenu = (index: any) => {
   toggleList[index] = !toggleList[index];
-  
-}
+};
 
-onMounted(()=>{
-  props.menuItems.forEach((value)=>{   
+const expandMenu = () => {
+  isExpand.value = !isExpand.value;
+};
+
+onMounted(() => {
+  props.menuItems.forEach((value) => {
     toggleList.push(false);
-  })
-  
+  });
 });
-
 </script>
 
 <style lang="postcss">

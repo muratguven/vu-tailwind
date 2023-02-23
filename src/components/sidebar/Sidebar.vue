@@ -1,12 +1,12 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col py-2">
     <button
-      class="border-none mt-3 ml-3 rounded w-12 h-12 md:hidden bg-gradient-to-t from-slate-200 to-zinc-200 dark:text-slate-50 dark:from-zinc-700 dark:to-zinc-600"
+      class="border-none mt-3 ml-3 rounded w-12 h-12 md:hidden bg-gradient-to-t from-stone-200 to-stone-400 dark:text-slate-50 dark:from-blue-700 dark:to-blue-600"
     >
       <font-awesome-icon icon="fa-solid fa-bars" />
     </button>
     <aside
-    class="max-md:hidden rounded h-screen overflow-hidden border-none bg-gradient-to-t from-slate-100 to-zinc-100 dark:from-indigo-900 dark:to-indigo-300"
+    class="max-md:hidden rounded-md h-screen overflow-hidden border-none bg-stone-300 dark:bg-gray-800"
   >
     <div class="flex flex-col items-center justify-center">
       <slot name="logo"> </slot>
@@ -17,7 +17,7 @@
         {{ props.appName }}
       </h2>
       <hr
-        class="mt-4 w-full border border-zinc-100 dark:border-indigo-300 shadow-sm"
+        class="mt-4 w-full border border-gray-300 dark:border-gray-700 shadow-sm shadow-stone-400 dark:shadow-gray-400"
       />
     </div>
 
@@ -33,10 +33,10 @@
             class="h-4 w-4 md:h-5 md:w-5"
           />
 
-          <span class="ml-2 text-xs md:ml-4 md:text-base">{{ item.text }}</span>
+          <span class="ml-2 text-xs md:ml-4 md:text-sm">{{ item.text }}</span>
         </RouterLink>
         <a
-          class="flex h-10 p-2 cursor-pointer rounded-md hover:bg-zinc-300 dark:hover:bg-purple-600"
+          class="flex h-10 p-2 cursor-pointer rounded-md hover:bg-stone-300 dark:hover:bg-indigo-600"
           v-else
           @click="toggleMenu(index)"
         >
@@ -44,7 +44,7 @@
             :icon="item.iconName"
             class="h-4 w-4 md:h-5 md:w-5"
           />
-          <span class="ml-2 text-xs md:ml-4 md:text-base">{{ item.text }}</span>
+          <span class="ml-2 text-xs md:ml-4 md:text-sm">{{ item.text }}</span>
           <font-awesome-icon
             icon="fa-solid fa-caret-down"
             class="absolute right-3 top-3 h-3 w-3 md:h-4 md:w-4"
@@ -62,7 +62,7 @@
             >
               <RouterLink
                 :to="subItem.to"
-                class="flex h-10 pl-4 pt-2 cursor-pointer rounded hover:bg-stone-200 dark:hover:bg-fuchsia-600"
+                class="flex h-10 pl-4 pt-2 cursor-pointer rounded hover:bg-stone-200 dark:hover:bg-indigo-600"
               >
                 <font-awesome-icon
                   :icon="subItem.iconName"
@@ -113,7 +113,7 @@ onMounted(() => {
 
 <style lang="postcss">
 li:has(> a.router-link-active) {
-  @apply bg-stone-300 rounded dark:bg-purple-500;
+  @apply bg-stone-300 rounded dark:bg-indigo-500;
 }
 .menu-item {
   @apply relative h-10 w-full md:font-medium;

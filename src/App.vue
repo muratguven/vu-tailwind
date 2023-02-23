@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto h-screen bg-pink-50 dark:bg-slate-700 dark:text-slate-50">
     <div
-      class="w-full h-screen grid grid-cols-6 grid-rows-[3rem_minmax(0,1fr)_2rem_3rem_5rem] gap-0"
+      class="w-full h-screen grid grid-cols-6 grid-rows-[1fr_4fr_1fr] gap-0"
     >
       <header class="col-span-5 col-start-2">
       <Navbar />
@@ -50,7 +50,7 @@
         </Sidebar>
       </div>
       <main class="col-span-6 md:col-span-5 w-full row-span-3"><RouterView /></main>
-      <footer class="col-span-6 fixed bottom-0 left-0 right-0 bg-purple-500">
+      <footer class="col-span-6  bg-purple-500">
         Footer
       </footer>
     </div>
